@@ -1,22 +1,19 @@
 # firebase_issue_repro
 
-A library for Dart developers.
-
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+A minimal reproduction of firebase issue #177 (https://github.com/firebase/firebase-dart/issues/177)
 
 ## Usage
 
-A simple usage example:
+Update main.dart and change the firebase details to a valid host
 
-    import 'package:firebase_issue_repro/firebase_issue_repro.dart';
+```
+  fb.initializeApp(
+      apiKey: '[YOUR API KEY]',        
+      databaseURL: '[YOUR DATABASE URL]',        
+      projectId: '[YOUR PROJECT ID]');
+```
 
-    main() {
-      var awesome = new Awesome();
-    }
 
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
+Opening the web app will create a new collection in your firestore root called 'test', add a document with a 
+single property 'key': oldValue. Immediately after it will update the field to 'newValue', which should generate 
+a warning in the console: `Cannot find native JavaScript type (firebase.Thenable) for type check`
